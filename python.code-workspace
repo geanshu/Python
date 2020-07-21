@@ -4,5 +4,7 @@
 			"path": "."
 		}
 	],
-	"settings": {"python.linting.pylintArgs": ["--generate-members"]}
+	"settings": {
+		"python.linting.pylintArgs": ["--generate-members"]
+	}
 }

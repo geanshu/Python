@@ -5,6 +5,10 @@
 		}
 	],
 	"settings": {
-		"python.linting.pylintArgs": ["--generate-members"]
+		"python.linting.pylintArgs": [
+			"--generate-members"
+		],
+		"files.autoSave": "afterDelay",
+		"files.autoSaveDelay": 60000
 	}
 }

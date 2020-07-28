@@ -2,7 +2,7 @@
 
 下面为该工程的介绍
     为慕课《Python语言程序设计》的笔记
-        -慕课网址：https://www.icourse163.org/course/BIT-268001
+        -慕课网址：<https://www.icourse163.org/course/BIT-268001>
         -如有不理解的，可以看看慕课
     所有提到的库，均为二级考试范围
 

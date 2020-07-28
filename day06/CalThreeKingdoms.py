@@ -10,8 +10,8 @@
         向分词词典增加新词w
 '''
 import jieba
-txt=open('E:\personal\study\Python\day06\\threekingdoms.txt','r',encoding='utf-8').read()
-excludes={'将军','却说','荆州','二人','不可','不能','如此'}
+txt=open('day06/threekingdoms.txt','r',encoding='utf-8').read()
+excludes={'将军','却说','荆州','二人','不可','不能','如此','商议','如何','主公','军士','左右','军马'}
 words=jieba.lcut(txt)
 counts={}
 

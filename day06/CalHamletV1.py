@@ -1,5 +1,5 @@
 def getText():
-    txt=open('E:\personal\study\Python\day06\hamlet.txt','r').read()
+    txt=open('day06/hamlet.txt','r').read()
     txt=txt.lower()
     for ch in '!"#$%&()*+,-./:;<=>?@[\\]^_‘{|}~':
         txt=txt.replace(ch,' ')

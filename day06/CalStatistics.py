@@ -99,7 +99,7 @@ def dev(numbers,mean):
     return pow(sdev/(len(numbers)-1),0.5)
 
 def median(numbers):
-    sorted(numbers)
+    numbers=sorted(numbers)
     size=len(numbers)
     if size%2==0:
         med=(numbers[size//2-1]+numbers[size//2])/2

@@ -19,7 +19,7 @@
             整数类型
                 b, c, d, o, x, X
             浮点数类型
-            e, E, f, %
+                e, E, f, %
 '''
 
 def Dayup(up):

@@ -1,3 +1,4 @@
+#Hello World的条件输出
 x=eval(input())
 str="Hello World"
 if x>0:

@@ -92,7 +92,7 @@
 
 ## day06
 
-    ****组合数据类型（集合，元组，列表，字典）与jieba库的使用***
+    ***组合数据类型（集合，元组，列表，字典）与jieba库的使用***
     CalStatistics.py
         组合数据类型的介绍，基本统计值计算实例
     CalThreeKingdoms.py（重点）

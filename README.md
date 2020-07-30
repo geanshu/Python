@@ -1,13 +1,16 @@
 # Python
 
-下面为该工程的介绍
-    为慕课《Python语言程序设计》的笔记
-        -慕课网址：<https://www.icourse163.org/course/BIT-268001>
-        -如有不理解的，可以看看慕课
+## 介绍
+
+    慕课《Python语言程序设计》的笔记
+        - 慕课网址：<https://www.icourse163.org/course/BIT-268001>
+        - 如有不理解的，可以看看慕课
+        - 习题均来自Python123网站<https://python123.io>
     所有提到的库，均为二级考试范围
     还剩余一章没写完，我会保持更新
 
-day01
+## day01
+
     环境配置与输入输出
     TempConvert.py（重点）
         典型例题，温度转换实例
@@ -16,7 +19,8 @@ day01
     ex_2.py
         数值运算
 
-day02（必考题）（重点）
+## day02（必考题）（重点）
+
     turtle库的使用
     PythonDraw.py
         记录turtle库的语法，蟒蛇绘制实例
@@ -27,7 +31,8 @@ day02（必考题）（重点）
     ex_2.py
         turtle八角图形绘制
 
-day03
+## day03
+
     基本数据类型介绍
     dayup.py
         介绍format基本语法，天天向上实例
@@ -48,7 +53,8 @@ day03
     ex_2.py
         字符串分段组合
 
-day04
+## day04
+
     程序结构与random库的使用
     Array_Sum.py
         for循环的例子，序列求和实例
@@ -66,7 +72,8 @@ day04
     ex_2.py
         100以内素数之和
 
-day05
+## day05
+
     函数使用以及PyInstaller库
     fibo.py（重点）（常见题）
         编程题，斐波那契数列的计算
@@ -83,7 +90,8 @@ day05
     ex_2.py
         连续质数计算
 
-day06
+## day06
+
     组合数据类型（集合，元组，列表，字典）与jieba库的使用
     CalStatistics.py
         组合数据类型的介绍，基本统计值计算实例
@@ -96,7 +104,8 @@ day06
     ex_2.py
         人名最多数统计
 
-day07
+## day07
+
     文件与wordcloud库的使用
     SeekExample.py
         Python中文件的使用方式

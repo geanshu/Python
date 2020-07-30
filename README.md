@@ -11,7 +11,7 @@
 
 ## day01
 
-    环境配置与输入输出
+    ***环境配置与输入输出***
     TempConvert.py（重点）
         典型例题，温度转换实例
     ex_1.py
@@ -21,7 +21,7 @@
 
 ## day02（必考题）（重点）
 
-    turtle库的使用
+    ***turtle库的使用***
     PythonDraw.py
         记录turtle库的语法，蟒蛇绘制实例
     其余文件
@@ -33,7 +33,7 @@
 
 ## day03
 
-    基本数据类型介绍
+    ***基本数据类型介绍***
     dayup.py
         介绍format基本语法，天天向上实例
     TextProBarV1.py
@@ -55,7 +55,7 @@
 
 ## day04
 
-    程序结构与random库的使用
+    ***程序结构与random库的使用***
     Array_Sum.py
         for循环的例子，序列求和实例
     calBMIV1.py
@@ -74,7 +74,7 @@
 
 ## day05
 
-    函数使用以及PyInstaller库
+    ***函数使用以及PyInstaller库***
     fibo.py（重点）（常见题）
         编程题，斐波那契数列的计算
     hanoi.py
@@ -92,7 +92,7 @@
 
 ## day06
 
-    组合数据类型（集合，元组，列表，字典）与jieba库的使用
+    ****组合数据类型（集合，元组，列表，字典）与jieba库的使用***
     CalStatistics.py
         组合数据类型的介绍，基本统计值计算实例
     CalThreeKingdoms.py（重点）
@@ -106,7 +106,7 @@
 
 ## day07
 
-    文件与wordcloud库的使用
+    ***文件与wordcloud库的使用***
     SeekExample.py
         Python中文件的使用方式
     GovRptWordCloudv1.py

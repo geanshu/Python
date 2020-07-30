@@ -1,3 +1,4 @@
+#随机密码生成
 import random
 
 def genpwd(length):

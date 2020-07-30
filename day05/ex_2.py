@@ -1,3 +1,4 @@
+#连续质数计算
 def prime(m):
     if m==1:
         return False

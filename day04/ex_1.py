@@ -1,3 +1,4 @@
+#四位玫瑰数
 for i in range(1,10):
     for j in range(0,10):
         for p in range(0,10):

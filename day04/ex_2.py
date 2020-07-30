@@ -1,3 +1,4 @@
+#100以内素数之和
 def isprime(n):
     if n==1 or n==2:
         return True

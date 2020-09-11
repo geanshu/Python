@@ -6,36 +6,31 @@ import time
 def main():
     conn = sqlite3.connect('project/test.db')
     c = conn.cursor()
-    print("Opened database successfully")
-    c.execute("SELECT testid, pcount  from people_count where testid='4' ")
+
+    c.execute("SELECT testid, pcount  from people_count where testid='1' ")
     before=c.fetchall()
 
-    f=open('project/a123.json', mode='w')
-    f.write('{"id": 3, "count": 3}')
-    f.close()
     while True:
-        time.sleep(1)
-        
-        # requests.post(url='http://localhost:8080/Fire/a123', data=json.dumps({
-        #     'id': 3,
-        #     'count': 3
-        # }), headers={'content_type': 'application/json'})
+        time.sleep(5)
+        c.execute("SELECT testid, pcount  from people_count where testid='1' ")
+        after=c.fetchall()
 
-    #     c.execute("SELECT testid, pcount  from people_count where testid='4' ")
-    #     after=c.fetchall()
-    #     if len(after<before):
-    #         continue
-    #     change=after[len(before):]
+        if len(after)<len(before):
+            continue
+        change=after[len(before):]
+        #读json
+        with open("project/a123.json", "r",encoding='utf-8') as jsonFile:
+            data = json.load(jsonFile)
+        #修改数据
+        for row in change:
+            print("Changed:ID = ", row[0], "    count = ", row[1])
+            data.append({'id':row[0],'count':row[1]})   
+        #写json
+        with open("project/a123.json", "w") as jsonFile:
+            json.dump(data, jsonFile,ensure_ascii=False)
 
-    #     for row in change:
-    #         print("Changed:ID = ", row[0], "    count = ", row[1])
-
-    #         requests.post(url='http://localhost:8080/Fire/a123.json', data=json.dumps({
-    #             'id': row[0],
-    #             'count': row[1]
-    #         }), headers={'content_type': 'application/json'})
-    #     before=after
-    # conn.close()
+        before=after
+    conn.close()
     
 if __name__ == "__main__":
     main()

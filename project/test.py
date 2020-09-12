@@ -23,19 +23,16 @@ def main():
             before=after
             continue
         change=after[len(before):]
-        #读json
-        with open(josn_url, "r",encoding='utf-8') as jsonFile:
-            data = json.load(jsonFile)
-        #修改数据
         if len(change)!=0:
             data=[]
-        for row in change:
-            print("Changed:ID = ", row[0], "    count = ", row[1])
-            data.append({'id':row[0],'count':row[1]})   
-        #写json
-        with open(josn_url, "w") as jsonFile:
-            json.dump(data, jsonFile,ensure_ascii=False)
-
+            #修改数据
+            for row in change:
+                print("Changed:ID = ", row[0], "    count = ", row[1])
+                data.append({'id':row[0],'count':row[1]})   
+            #写json
+            with open(josn_url, "w") as jsonFile:
+                json.dump(data, jsonFile,ensure_ascii=False)
+                
         before=after
     conn.close()
     

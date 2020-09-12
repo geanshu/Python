@@ -2,7 +2,7 @@ import json
 import requests
 import sqlite3
 import time
-"where testid='1'"
+
 db_url='project/test.db'
 sql_execute="SELECT testid, pcount  from people_count "
 josn_url='D:/apache-tomcat-9.0.37/webapps/Fire/a123.json'

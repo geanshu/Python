@@ -5,7 +5,7 @@ import time
 
 data = [{'tm': 0, 'hu': 0}, {'tm': 0, 'hu': 0}, {'tm': 0, 'hu': 0},
         {'tm': 0, 'hu': 0}, {'tm': 0, 'hu': 0}]
-access_token = '37_1AOa4u-s6grgW2RQ4zdTXdyo-OYzVD8gVyRxD1jHw9rdrvRNK54ekeCMBmNMYjy0P9gfWikeFbACgkFSq0poHQLF8JEdfGQiMN4JSM95Gl6IzZFHWjJvGe7TGw44vSIDYLOpwlc64vlJmt_vARTdAGADUW'
+access_token = '38_SgPqJnKVr26PfS018YiPvkpRxemPyinu1Bpi0i0OHOOD7VA6i3AhmKI3ahCYfLzN-tIZVE7s7FyRBX7ikEspzdtepKaLl9ySp8rdkEQ_7qPUzOWFeTyVrnzAjW9eSetiHxyQqL2cMI7uwVvFVHCbABAKWR'
 def get_access_token():
     """
     获取小程序全局唯一后台接口调用凭据 access_token
@@ -58,13 +58,12 @@ def message_data(openid, template_id, post_data):
 
 if __name__ == "__main__":
     post_data = {
-        "time1": {"value": str(time.strftime('%Y年%m月%d日 %H:%M', time.localtime(time.time())))},
-        "thing2": {
-            "value": '设备：{:d} 温度：{:.1f} 湿度：{:.1f}'.format(1, data[1]['tm'], data[1]['hu'])
-        },
-    }
-    get_access_token()
-    f = message_data('oizNr5EpkBFDj6soHrARvPxFjlx8','YSL6LXFSwBGFWctF-es4qNB8moOrbmYSvYYhVx5xT4U',post_data)
-    print(str(f))
-
-# print(str(datetime.datetime.now()))
+                    "time1": {"value": str(time.strftime('%Y年%m月%d日 %H:%M', time.localtime(time.time())))},
+                    "thing2": {
+                        "value": '设备：{:d} 温度：{:.1f} 湿度：{:.1f}'.format(2, 34, 50)
+                    },
+                }
+    # get_access_token()
+    
+    
+    f = message_data('RlzIWw04GwP9p2pEsTg3p959A3waEVm4RAvn2CJP0cA','YSL6LXFSwBGFWctF-es4qNB8moOrbmYSvYYhVx5xT4U',post_data)

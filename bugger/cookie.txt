@@ -1,0 +1,18 @@
+Mozilla/5.0 (Linux; Android 10; MIX 2S Build/QKQ1.190828.002; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/78.0.3904.62 XWEB/2693 MMWEBSDK/201001 Mobile Safari/537.36 MMWEBID/1531 MicroMessenger/7.0.20.1781(0x2700143F) Process/toolsmp WeChat/arm64 NetType/WIFI Language/zh_CN ABI/arm64;
+
+http://chaxin.hnu.edu.cn/mobile/html/usercenter/my.html?v=20200517
+
+ASP.NET_SessionId k1ykimv1uufag1zt32zwttvm
+不变：dt_cookie_user_name_remember=3FE3638936E97946C744EF0BCA3F5B835ADB779878D74FFD
+
+进入：
+http://chaxin.hnu.edu.cn/api/hnu/CheckReader.aspx?rdid=77357248703862324E495533364E34436153644D77673D3D&libcode=55344B7855786A5165736653714730754853434969513D3D&name=舒俊锋&openid=omIDgjoFhNWG6ZBycX3-1t0LiUmw
+获取ASP.NET_SessionId和dt_cookie_user_name_remembe
+
+获取推荐座位：
+POST：http://chaxin.hnu.edu.cn/mobile/ajax/seat/SeatInfoHandler.ashx data_type=GetTuiJianSeat&addresscode=hnu_lib4_3F1&seatdate=2020-12-02
+获取座位的初始值成功：
+POST：http://chaxin.hnu.edu.cn/mobile/ajax/seat/SeatDateHandler.ashx data_type=getSeatInit&addresscode=hnu_lib4_3F1&seatdate=2020-12-02
+REFERER:
+http://chaxin.hnu.edu.cn/mobile/html/seat/seat_tujian.html?v=20200517&seataddress=hnu_lib4_3F1&seatdate=2020-12-02&address_name=德智园分馆三楼自修室&area_name=德智园分馆
+

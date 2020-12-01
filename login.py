@@ -1,39 +1,45 @@
 import requests
 import json
 import urllib
+import time
+import random
 from PIL import Image
 from aip import AipOcr
 
-# 获取验证码
+data = {"studentId":["201801120127","201801120102","201801120103","201801120129"],
+        "password" :["Aolong0813","forever1314ZY","Rwanwanwan2333","Wh890912."]}
+
+# 获取验证码随机Token
 def getimgvcode():
     url = "https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode"
     resp = requests.get(url)
     return resp.json()['data']['Token']
 
+# 获取验证码图片
 def getimg(token):
     url = "https://fangkong.hnu.edu.cn/imagevcode?token={}".format(token)
-    file = 'pic.jpg'
-    # resp = requests.get(url)
     response = urllib.request.urlopen(url)
-    html = response.read()
-    return html
+    pic = response.read()
+    return pic
 
+# 识别验证码
 def decord(pic):
     AppID = '123061489'
     API_Key = '5tsCETiTgH4q4IhMzl29zgj7'
     Secret_Key = 's1T2eqCb6Ki4iI7VfxCNhYtl4HBNnTRP'
     client = AipOcr(AppID, API_Key, Secret_Key)
     res=client.basicGeneral(pic)
-    print(res['words_result'][0]['words'])
+    # print(res['words_result'][0]['words'])
     return res['words_result'][0]['words']
 
-def login(Token, VerCode):
+# 登录
+def login(token, verCode, studentId, password):
     data = {
-        'Code': "201801120127",
-        'Password': "Aolong0813",
-        'Token': Token,
-        'VerCode': VerCode,
-        'WechatUserinfoCode': ''
+        'Code': studentId,
+        'Password': password,
+        'Token': token,
+        'VerCode': verCode,
+        'WechatUserinfoCode': None
     }
     headers = {
             'Host': 'fangkong.hnu.edu.cn',
@@ -52,31 +58,32 @@ def login(Token, VerCode):
             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6'
     }
 
-    Cookie={ 
-        'CCKF_visitor_id_144692' : '1299268355',
-        'UM_distinctid' : '17478f18be55c9-0b266fdff9b052-58321f4d-144000-17478f18be6dad',
-        'pgv_pvi' : '3370444800',
-        'Hm_lvt_d7e34467518a35dd690511f2596a570e' : "1606406616,1606406645,1606406659,1606579508",
-        'Hm_lpvt_d7e34467518a35dd690511f2596a570e' : '1606580853'
+    cookie={ 
+        # 'CCKF_visitor_id_144692' : '1299268355',
+        # 'UM_distinctid' : '17478f18be55c9-0b266fdff9b052-58321f4d-144000-17478f18be6dad',
+        # 'pgv_pvi' : '3370444800',
+        # 'Hm_lvt_d7e34467518a35dd690511f2596a570e' : "1606406616,1606406645,1606406659,1606579508",
+        # 'Hm_lpvt_d7e34467518a35dd690511f2596a570e' : '1606580853'
     }
 
     data = json.dumps(data)
     url = 'https://fangkong.hnu.edu.cn/api/v1/account/login'
-    resp = requests.post(url,data=data,headers=headers,cookies = Cookie)
-    print(resp.json()['msg'])
-    return requests.utils.dict_from_cookiejar(resp.cookies)
+    resp = requests.post(url,data=data,headers=headers,cookies = cookie)
+    print("login:"+str(resp.json()['code'])+':'+resp.json()['msg'])
+    return resp.json()['code'],requests.utils.dict_from_cookiejar(resp.cookies)
 
-def daka(cookie):
+# 打卡
+def daka(aspxauth, token):
     url = 'https://fangkong.hnu.edu.cn/api/v1/clockinlog/add/'
     data = {'BackState': 1,
-        'Latitude': '',
-        'Longitude': '',
-        'MorningTemp': "36.6",
-        'NightTemp': "36.6",
+        'Latitude': None,
+        'Longitude': None,
+        'MorningTemp': random.randrange(365,373)/10.0,
+        'NightTemp': random.randrange(365,373)/10.0,
         'RealAddress': "正在获取定位...",
-        'RealCity': '',
-        'RealCounty': '',
-        'RealProvince': '',
+        'RealCity': None,
+        'RealCounty': None,
+        'RealProvince': None,
         'tripinfolist': []
     }
     #把cookie字符串处理成字典，以便接下来使用
@@ -97,21 +104,29 @@ def daka(cookie):
             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6'
     }
     cookies = {
-        'CCKF_visitor_id_144692':'1299268355',
-        'UM_distinctid':'17478f18be55c9-0b266fdff9b052-58321f4d-144000-17478f18be6dad',
-        'pgv_pvi':'3370444800',
-        'Hm_lvt_d7e34467518a35dd690511f2596a570e':'1606406616,1606406645,1606406659,1606579508',
-        'Hm_lpvt_d7e34467518a35dd690511f2596a570e':'1606580853',
-        '.ASPXAUTH':cookie['.ASPXAUTH'],
-        'TOKEN':cookie['TOKEN']
+        # 'CCKF_visitor_id_144692':'1299268355',
+        # 'UM_distinctid':'17478f18be55c9-0b266fdff9b052-58321f4d-144000-17478f18be6dad',
+        # 'pgv_pvi':'3370444800',
+        # 'Hm_lvt_d7e34467518a35dd690511f2596a570e':'1606406616,1606406645,1606406659,1606579508',
+        # 'Hm_lpvt_d7e34467518a35dd690511f2596a570e':'1606580853',
+        '.ASPXAUTH':aspxauth,
+        'TOKEN':token
     }
     #在发送get请求时带上请求头和cookies
     resp = requests.post(url,data=json.dumps(data),headers=headers,cookies = cookies)
-    print(resp.json)
+    print(resp.json())
+    return resp.json()['code']
 
 if __name__ == "__main__":
-    token = getimgvcode()
-    pic = getimg(token)
-    VerCode = decord(pic)
-    cookie = login(token, VerCode)
-    daka(cookie)
+    for i in range(4):
+        code = 1
+        while code!=0:
+            token = getimgvcode()
+            pic = getimg(token)
+            VerCode = decord(pic)
+            code,cookie = login(token, VerCode, data['studentId'][i], data['password'][i])
+            time.sleep(1)
+        while daka(cookie['.ASPXAUTH'],cookie['TOKEN'])!=0:
+            time.sleep(1)
+        print("No.{}:successful!".format(i))
+        

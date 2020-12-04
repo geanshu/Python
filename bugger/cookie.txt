@@ -16,3 +16,16 @@ POST：http://chaxin.hnu.edu.cn/mobile/ajax/seat/SeatDateHandler.ashx data_type=
 REFERER:
 http://chaxin.hnu.edu.cn/mobile/html/seat/seat_tujian.html?v=20200517&seataddress=hnu_lib4_3F1&seatdate=2020-12-02&address_name=德智园分馆三楼自修室&area_name=德智园分馆
 
+总馆：hnu_lib1
+'hnu_lib1_1F1':'总馆一楼外文文献借阅室'
+'hnu_lib1_2F1':'总馆二楼读者服务中心'
+'hnu_lib1_3F1':'总馆三楼中文社科文献借阅室'
+'hnu_lib1_3F2':'总馆三楼自习室'
+'hnu_lib1_4F1':'总馆四楼中文自科文献借阅室(一)'
+'hnu_lib1_5F1':'总馆五楼中文自科文献借阅室(二)'
+'hnu_lib1_6F1':'总馆六楼中文自科文献借阅室(三)'
+'hnu_lib1_7F1':'总馆七楼中文自科文献借阅室(四)'
+'hnu_lib1_8F1':'总馆八楼自习室'
+德智园分馆:hnu_lib4
+'hnu_lib4_3F1':'德智园分馆四楼借阅室'
+'hnu_lib4_4F1':'德智园分馆四楼借阅室'

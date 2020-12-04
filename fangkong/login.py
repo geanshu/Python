@@ -12,12 +12,43 @@ data = {"studentId":["201801120127","201801120102","201801120103","201801120129"
 # 获取验证码随机Token
 def getimgvcode():
     url = "https://fangkong.hnu.edu.cn/api/v1/account/getimgvcode"
-    resp = requests.get(url)
+    headers = {
+            'Host': 'fangkong.hnu.edu.cn',
+            'Connection': 'keep-alive',
+            'Accept': 'application/json, text/plain, */*',
+            'DNT': '1',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.67 Safari/537.36 Edg/87.0.664.47',
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Origin': 'https://fangkong.hnu.edu.cn',
+            'Sec-Fetch-Site': 'same-origin',
+            'Sec-Fetch-Mode': 'cors',
+            'Sec-Fetch-Dest': 'empty',
+            'Referer': 'https://fangkong.hnu.edu.cn/app/',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6'
+    }
+    resp = requests.get(url, headers=headers, verify = False)
+    # resp = requests.get(url, headers=headers,cert='fangkong/fangyi.cer')
     return resp.json()['data']['Token']
 
 # 获取验证码图片
 def getimg(token):
     url = "https://fangkong.hnu.edu.cn/imagevcode?token={}".format(token)
+    headers = {
+            'Host': 'fangkong.hnu.edu.cn',
+            'Connection': 'keep-alive',
+            'Accept': 'image/webp,image/apng,image/*,*/*;q=0.8',
+            'DNT': '1',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.67 Safari/537.36 Edg/87.0.664.47',
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Origin': 'https://fangkong.hnu.edu.cn',
+            'Sec-Fetch-Site': 'same-origin',
+            'Sec-Fetch-Mode': 'no-cors',
+            'Sec-Fetch-Dest': 'image',
+            'Referer': 'https://fangkong.hnu.edu.cn/app/',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6'
+    }
     response = urllib.request.urlopen(url)
     pic = response.read()
     return pic
@@ -68,7 +99,7 @@ def login(token, verCode, studentId, password):
 
     data = json.dumps(data)
     url = 'https://fangkong.hnu.edu.cn/api/v1/account/login'
-    resp = requests.post(url,data=data,headers=headers,cookies = cookie)
+    resp = requests.post(url,data=data,headers=headers,cookies = cookie, verify = False)
     print("login:"+str(resp.json()['code'])+':'+resp.json()['msg'])
     return resp.json()['code'],requests.utils.dict_from_cookiejar(resp.cookies)
 
@@ -113,7 +144,7 @@ def daka(aspxauth, token):
         'TOKEN':token
     }
     #在发送get请求时带上请求头和cookies
-    resp = requests.post(url,data=json.dumps(data),headers=headers,cookies = cookies)
+    resp = requests.post(url,data=json.dumps(data),headers=headers,cookies = cookies, verify = False)
     print(resp.json())
     return resp.json()['code']
 

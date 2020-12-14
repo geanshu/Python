@@ -6,8 +6,8 @@ import random
 from PIL import Image
 from aip import AipOcr
 
-data = {"studentId":["201801120127","201801120102","201801120103","201801120129"],
-        "password" :["Aolong0813","forever1314ZY","Rwanwanwan2333","Wh890912."]}
+data = {"studentId":["201801120127","201801120102","201801120103","201801120129",'201709010123'],
+        "password" :["Aolong0813","forever1314ZY","Rwanwanwan2333","Wh890912.", "Wajj19980824"]}
 
 # 获取验证码随机Token
 def getimgvcode():
@@ -149,15 +149,18 @@ def daka(aspxauth, token):
     return resp.json()['code']
 
 if __name__ == "__main__":
-    for i in range(4):
+    for i in range(5):
         code = 1
         while code!=0:
             token = getimgvcode()
             pic = getimg(token)
             VerCode = decord(pic)
             code,cookie = login(token, VerCode, data['studentId'][i], data['password'][i])
+            if code == 404:
+                break
             time.sleep(1)
         while daka(cookie['.ASPXAUTH'],cookie['TOKEN'])!=0:
             time.sleep(1)
         print("No.{}:successful!".format(i))
+    input("Press <enter>")
         

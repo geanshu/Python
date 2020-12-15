@@ -100,7 +100,7 @@ def login(token, verCode, studentId, password):
     data = json.dumps(data)
     url = 'https://fangkong.hnu.edu.cn/api/v1/account/login'
     resp = requests.post(url,data=data,headers=headers,cookies = cookie, verify = False)
-    print("login:"+str(resp.json()['code'])+':'+resp.json()['msg'])
+    print("login:"+resp.json()['msg'])
     return resp.json()['code'],requests.utils.dict_from_cookiejar(resp.cookies)
 
 # 打卡
@@ -159,7 +159,7 @@ if __name__ == "__main__":
             if code == 404:
                 break
             time.sleep(1)
-        while daka(cookie['.ASPXAUTH'],cookie['TOKEN'])!=0:
+        while daka(cookie['.ASPXAUTH'],cookie['TOKEN']) not in {0,1}:
             time.sleep(1)
         print("No.{}:successful!".format(i))
     input("Press <enter>")

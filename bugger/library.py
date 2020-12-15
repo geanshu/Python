@@ -25,26 +25,34 @@ address_name_dic = {
     'hnu_lib1_6F1': '总馆六楼中文自科文献借阅室(三)',
     'hnu_lib1_7F1': '总馆七楼中文自科文献借阅室(四)',
     'hnu_lib1_8F1': '总馆八楼自习室',
-    'hnu_lib4_3F1': '德智园分馆四楼借阅室',
+    'hnu_lib4_3F1': '德智园分馆三楼自修室',
     'hnu_lib4_4F1': '德智园分馆四楼借阅室'
 }
 
 study_time_dic = [(12, 18), (16, 22.5), (12, 22.5),
                   (12, 22.5), (18, 22.5), (14, 22.5), (14, 22.5)]
+
+cookie_unit_name ='%e6%b9%96%e5%8d%97%e5%a4%a7%e5%ad%a6%e5%9b%be%e4%b9%a6%e9%a6%86'
 dt_cookie_user_name_remember = '3FE3638936E97946C744EF0BCA3F5B835ADB779878D74FFD'
 
 def init():
-    time_next = datetime.datetime.now() + datetime.timedelta(days=1)  # 获取后一天
+    time_next = datetime.datetime.now()                 # 获取当天
+    # time_next = time_next + datetime.timedelta(days=1)  # 获取后一天
+    date = (time_next).strftime("%Y-%m-%d")
+
     if time_next.hour < 8:
         json_data = {"code": 0,"time":''}
         with open('E:/personal/study/Python/bugger/code.json', "w") as jsonFile:
             json.dump(json_data, jsonFile, ensure_ascii=False)
-    # time_next = datetime.date.today()
-    date = (time_next).strftime("%Y-%m-%d")
+    with open('E:/personal/study/Python/bugger/code.json', 'r', encoding='utf8')as fp:
+        if json.load(fp)['code'] == 1:
+            sys.exit(0)
+    
     (start, end) = study_time_dic[time_next.weekday()]
     study_time = '{:d},{:d}'.format(int(start*60), int(end*60))
+    
     SessionId = ''
-    # SessionId=login()
+    SessionId=login()
     return (date, study_time, SessionId)
 
 # 生成Refer
@@ -53,14 +61,14 @@ def getRefer(address, date):
     address_name = urllib.parse.quote(address_name)
     area_name = area_name_dic[address[:8]]
     area_name = urllib.parse.quote(area_name)
-    refer = 'http://chaxin.hnu.edu.cn/mobile/html/seat/seat_tujian.html?v=20200517&seataddress={}&seatdate={}&address_name={}&area_name={}'.format(
-        address, date, address_name, area_name)
+    refer = 'http://chaxin.hnu.edu.cn/mobile/html/seat/seat_tujian.html?v=20201207&seataddress={}&seatdate={}&address_name={}&area_code{}&area_name={}'.format(
+        address, date, address_name, address[:8], area_name)
 
 # 登录
 def login():
     data = {
-        'rdid': '77357248703862324E495533364E34436153644D77673D3D',
-        'libcode': '55344B7855786A5165736653714730754853434969513D3D',
+        'rdid': 'w5rHp8b2NIU36N4CaSdMwg==',
+        'libcode': 'U4KxUxjQesfSqG0uHSCIiQ==',
         'name': '舒俊锋',
         'openid': "omIDgjoFhNWG6ZBycX3-1t0LiUmw"
     }
@@ -85,6 +93,7 @@ def login():
 def getseat(SessionId, address, date, refer):
     data = {
         'data_type': 'GetTuiJianSeat',
+        'areacode': address[:8],
         'addresscode': address,
         'seatdate': date
     }
@@ -92,7 +101,7 @@ def getseat(SessionId, address, date, refer):
     headers = {
         'Host': 'chaxin.hnu.edu.cn',
         'Connection': 'keep-alive',
-        'Content-Length': '69',
+        'Content-Length': '87',
         'Accept': 'application/json',
         'Origin': 'http://chaxin.hnu.edu.cn',
         'X-Requested-With': 'XMLHttpRequest',
@@ -100,19 +109,10 @@ def getseat(SessionId, address, date, refer):
         'Content-Type': 'application/x-www-form-urlencoded',
         'Referer': refer,
         'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7'
+        'Accept-Language': 'zh-CN,zh;q=0.8,en-US;q=0.6,en;q=0.5;q=0.4'
     }
     cookie = {
-        # 'DSSTASH_LOG':'C_4-UN_4965-US_-1-T_1606273080103',
-        # 'mduxiu':'musername,=blmobile,!muserid,=1000086,!mcompcode,=1147,!menc,=A68AC0E8A1B0AA007DBB8ABEC1A4B522',
-        # 'xc':'5',
-        # 'pgv_si':'s4753588224',
-        # 'mgid':'269',
-        # 'maid':'59',
-        # 'msign_dsr':'1606273080114',
-        'pgv_pvi': '3370444800',
-        'CCKF_visitor_id_144692': '1299268355',
-        'UM_distinctid': '17478f18be55c9-0b266fdff9b052-58321f4d-144000-17478f18be6dad',
+        'cookie_unit_name': cookie_unit_name,
         'ASP.NET_SessionId': SessionId,
         'dt_cookie_user_name_remember': dt_cookie_user_name_remember
     }
@@ -141,7 +141,7 @@ def setseat(SessionId, seat, date, time, refer):
     headers = {
         'Host': 'chaxin.hnu.edu.cn',
         'Connection': 'keep-alive',
-        'Content-Length': '76',
+        'Content-Length': '75',
         'Accept': 'application/json',
         'Origin': 'http://chaxin.hnu.edu.cn',
         'X-Requested-With': 'XMLHttpRequest',
@@ -149,19 +149,10 @@ def setseat(SessionId, seat, date, time, refer):
         'Content-Type': 'application/x-www-form-urlencoded',
         'Referer': refer,
         'Accept-Encoding': 'gzip, deflate',
-        'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7'
+        'Accept-Language': 'zh-CN,zh;q=0.8,en-US;q=0.6,en;q=0.5;q=0.4'
     }
     cookie = {
-        # 'DSSTASH_LOG':'C_4-UN_4965-US_-1-T_1606273080103',
-        # 'mduxiu':'musername,=blmobile,!muserid,=1000086,!mcompcode,=1147,!menc,=A68AC0E8A1B0AA007DBB8ABEC1A4B522',
-        # 'xc':'5',
-        # 'pgv_si':'s4753588224',
-        # 'mgid':'269',
-        # 'maid':'59',
-        # 'msign_dsr':'1606273080114',
-        'pgv_pvi': '3370444800',
-        'CCKF_visitor_id_144692': '1299268355',
-        'UM_distinctid': '17478f18be55c9-0b266fdff9b052-58321f4d-144000-17478f18be6dad',
+        'cookie_unit_name': cookie_unit_name,
         'ASP.NET_SessionId': SessionId,
         'dt_cookie_user_name_remember': dt_cookie_user_name_remember
     }
@@ -176,17 +167,15 @@ def setseat(SessionId, seat, date, time, refer):
 if __name__ == "__main__":
     (date, study_time, SessionId) = init()
     times = 1
-    with open('E:/personal/study/Python/bugger/code.json', 'r', encoding='utf8')as fp:
-        if json.load(fp)['code'] == 1:
-            sys.exit(0)
     while times <= 12 * 1 :
         print("第{:d}次尝试".format(times))
         for address in ['hnu_lib4_3F1', 'hnu_lib4_4F1']:
             refer = getRefer(address, date)
-            # SessionId = 'rr5isn22hlfiuyrib5xmwzjv'
+            SessionId = 'rr5isn22hlfiuyrib5xmwzjv'
             code = 1
             error = 0
             data = []
+            # 获取座位
             while code != 0:
                 if error == 3:
                     print("{}No Seat!".format(address))
@@ -197,6 +186,7 @@ if __name__ == "__main__":
                 code = data['code']
                 error += 1
                 time.sleep(1)
+            # 抢座
             error = 0
             for seat in data['data']:
                 if error == 3:

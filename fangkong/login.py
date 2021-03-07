@@ -6,8 +6,11 @@ import random
 from PIL import Image
 from aip import AipOcr
 
-data = {"studentId":["201801120127","201801120102","201801120103","201801120129",'201709010123'],
-        "password" :["Aolong0813","forever1314ZY","Rwanwanwan2333","Wh890912.", "Wajj19980824"]}
+data = {"studentId":["201801120127","201801120102","201801120103","201801120129",'201709010123','201801120119'],
+        "password" :["Aolong0813","forever1314ZY","Rwanwanwan2333","Wh890912.", "Wajj19980824",'Zzk342552']}
+
+# data = {"studentId":["201801120127"],
+#         "password" :["Aolong0813"]}
 
 # 获取验证码随机Token
 def getimgvcode():
@@ -111,10 +114,10 @@ def daka(aspxauth, token):
         'Longitude': None,
         'MorningTemp': random.randrange(365,373)/10.0,
         'NightTemp': random.randrange(365,373)/10.0,
-        'RealAddress': "正在获取定位...",
-        'RealCity': None,
-        'RealCounty': None,
-        'RealProvince': None,
+        'RealAddress': "德智学生公寓八栋",
+        'RealCity': "长沙市",
+        'RealCounty': "岳麓区",
+        'RealProvince': "湖南省",
         'tripinfolist': []
     }
     #把cookie字符串处理成字典，以便接下来使用
@@ -149,18 +152,24 @@ def daka(aspxauth, token):
     return resp.json()['code']
 
 if __name__ == "__main__":
-    for i in range(5):
+    for i in range(6):
         code = 1
+        cookie = []
         while code!=0:
             token = getimgvcode()
+            
             pic = getimg(token)
             VerCode = decord(pic)
             code,cookie = login(token, VerCode, data['studentId'][i], data['password'][i])
             if code == 404:
                 break
             time.sleep(1)
+        error = 0
         while daka(cookie['.ASPXAUTH'],cookie['TOKEN']) not in {0,1}:
             time.sleep(1)
+            error+=1
+            if error > 3:
+                break
         print("No.{}:successful!".format(i))
     input("Press <enter>")
         

@@ -29,18 +29,19 @@ address_name_dic = {
     'hnu_lib4_4F1': '德智园分馆四楼借阅室'
 }
 
-study_time_dic = [(12, 18), (16, 22.5), (12, 22.5),
-                  (12, 22.5), (18, 22.5), (14, 22.5), (14, 22.5)]
+study_time_dic = [(10, 22.5), (10, 22.5), (18, 22.5),
+                  (18, 22.5), (10, 22.5), (12, 22.5), (10, 22.5)]
 
 cookie_unit_name ='%e6%b9%96%e5%8d%97%e5%a4%a7%e5%ad%a6%e5%9b%be%e4%b9%a6%e9%a6%86'
 dt_cookie_user_name_remember = '3FE3638936E97946C744EF0BCA3F5B835ADB779878D74FFD'
 
 def init():
     time_next = datetime.datetime.now()                 # 获取当天
-    # time_next = time_next + datetime.timedelta(days=1)  # 获取后一天
+    if time_next.hour >= 21:
+        time_next = time_next + datetime.timedelta(days=1)  # 获取后一天
     date = (time_next).strftime("%Y-%m-%d")
 
-    if time_next.hour < 8:
+    if time_next.hour >= 21:
         json_data = {"code": 0,"time":''}
         with open('E:/personal/study/Python/bugger/code.json', "w") as jsonFile:
             json.dump(json_data, jsonFile, ensure_ascii=False)
@@ -186,12 +187,11 @@ if __name__ == "__main__":
                 code = data['code']
                 error += 1
                 time.sleep(1)
-            # 抢座
             error = 0
             for seat in data['data']:
                 if error == 3:
                     break
-                if seat['ShowDataTime'] == "暂无":
+                if seat['ShowDataTime'] == "暂无预约" and int(seat['Code'][7:]) > 24:
                     print(seat)
                     resp = setseat(SessionId, seat['Code'], date, study_time, refer)
                     if resp['code'] == 0:
@@ -202,6 +202,6 @@ if __name__ == "__main__":
                         sys.exit(0)
                     error += 1
                     time.sleep(0.5)
-        time.sleep(5)
+        time.sleep(10)
         times+=1
     input("Press <enter>")

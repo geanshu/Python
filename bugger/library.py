@@ -29,10 +29,10 @@ address_name_dic = {
     'hnu_lib4_4F1': '德智园分馆四楼借阅室'
 }
 
-study_time_dic = [(10, 22.5), (10, 22.5), (18, 22.5),
-                  (18, 22.5), (10, 22.5), (12, 22.5), (10, 22.5)]
+study_time_dic = [(10, 22.5), (14, 22.5), (14, 22.5),
+                  (18, 22.5), (18, 22.5), (12, 22.5), (12, 22.5)]
 
-cookie_unit_name ='%e6%b9%96%e5%8d%97%e5%a4%a7%e5%ad%a6%e5%9b%be%e4%b9%a6%e9%a6%86'
+cookie_unit_name ='%e6%b9%96%e5%8d%97%e5%a4%a7%e5%ad%a6%e5%9b%be%e4%b9%a6%e9%a6%86' # 湖南大学图书馆
 dt_cookie_user_name_remember = '3FE3638936E97946C744EF0BCA3F5B835ADB779878D74FFD'
 
 def init():

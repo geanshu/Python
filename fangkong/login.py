@@ -6,8 +6,8 @@ import random
 from PIL import Image
 from aip import AipOcr
 
-data = {"studentId":["201801120127","201801120102","201801120103","201801120129",'201709010123','201801120119'],
-        "password" :["Aolong0813","forever1314ZY","Rwanwanwan2333","Wh890912.", "Wajj19980824",'Zzk342552']}
+data = {"studentId":["201801120127","201801120103","201801120129",'201801120119',"201801120102"],
+        "password" :["Aolong0813","Rwanwanwan2333","Wh890912.",'Zzk342552',"forever1314ZY"]}
 
 # data = {"studentId":["201801120127"],
 #         "password" :["Aolong0813"]}
@@ -63,6 +63,7 @@ def decord(pic):
     Secret_Key = 's1T2eqCb6Ki4iI7VfxCNhYtl4HBNnTRP'
     client = AipOcr(AppID, API_Key, Secret_Key)
     res=client.basicGeneral(pic)
+    # print(res)
     # print(res['words_result'][0]['words'])
     return res['words_result'][0]['words']
 
@@ -152,9 +153,10 @@ def daka(aspxauth, token):
     return resp.json()['code']
 
 if __name__ == "__main__":
-    for i in range(6):
+    for i in range(5):
         code = 1
         cookie = []
+        
         while code!=0:
             token = getimgvcode()
             

@@ -6,11 +6,13 @@ import random
 from PIL import Image
 from aip import AipOcr
 
-data = {"studentId":["201801120127","201801120103","201801120129",'201801120119',"201801120102"],
-        "password" :["Aolong0813","Rwanwanwan2333","Wh890912.",'Zzk342552',"forever1314ZY"]}
+data = [("201801120127","Aolong0813"),
+        ("201801120103","Rwanwanwan2333"),
+        ("201801120129","Wh890912."),
+        ('201801120119',"Zzk342552"),
+        ("201801120102","forever1314ZY")]
 
-# data = {"studentId":["201801120127"],
-#         "password" :["Aolong0813"]}
+# data = [("201801120127","Aolong0813")]
 
 # 获取验证码随机Token
 def getimgvcode():
@@ -92,18 +94,9 @@ def login(token, verCode, studentId, password):
             'Accept-Encoding': 'gzip, deflate, br',
             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6'
     }
-
-    cookie={ 
-        # 'CCKF_visitor_id_144692' : '1299268355',
-        # 'UM_distinctid' : '17478f18be55c9-0b266fdff9b052-58321f4d-144000-17478f18be6dad',
-        # 'pgv_pvi' : '3370444800',
-        # 'Hm_lvt_d7e34467518a35dd690511f2596a570e' : "1606406616,1606406645,1606406659,1606579508",
-        # 'Hm_lpvt_d7e34467518a35dd690511f2596a570e' : '1606580853'
-    }
-
     data = json.dumps(data)
     url = 'https://fangkong.hnu.edu.cn/api/v1/account/login'
-    resp = requests.post(url,data=data,headers=headers,cookies = cookie, verify = False)
+    resp = requests.post(url,data=data,headers=headers, verify = False)
     print("login:"+resp.json()['msg'])
     return resp.json()['code'],requests.utils.dict_from_cookiejar(resp.cookies)
 
@@ -139,30 +132,24 @@ def daka(aspxauth, token):
             'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6'
     }
     cookies = {
-        # 'CCKF_visitor_id_144692':'1299268355',
-        # 'UM_distinctid':'17478f18be55c9-0b266fdff9b052-58321f4d-144000-17478f18be6dad',
-        # 'pgv_pvi':'3370444800',
-        # 'Hm_lvt_d7e34467518a35dd690511f2596a570e':'1606406616,1606406645,1606406659,1606579508',
-        # 'Hm_lpvt_d7e34467518a35dd690511f2596a570e':'1606580853',
         '.ASPXAUTH':aspxauth,
         'TOKEN':token
     }
     #在发送get请求时带上请求头和cookies
     resp = requests.post(url,data=json.dumps(data),headers=headers,cookies = cookies, verify = False)
-    print(resp.json())
+    print("clock in:"+resp.json()['msg'])
     return resp.json()['code']
 
 if __name__ == "__main__":
-    for i in range(5):
+    for idx, (studentId,password) in enumerate(data):
         code = 1
         cookie = []
         
         while code!=0:
             token = getimgvcode()
-            
             pic = getimg(token)
             VerCode = decord(pic)
-            code,cookie = login(token, VerCode, data['studentId'][i], data['password'][i])
+            code,cookie = login(token, VerCode, studentId, password)
             if code == 404:
                 break
             time.sleep(1)
@@ -172,6 +159,6 @@ if __name__ == "__main__":
             error+=1
             if error > 3:
                 break
-        print("No.{}:successful!".format(i))
+        print("No.{}:successful!".format(idx))
     input("Press <enter>")
         
